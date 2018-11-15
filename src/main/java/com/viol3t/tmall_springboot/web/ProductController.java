@@ -2,6 +2,7 @@ package com.viol3t.tmall_springboot.web;
 
 import com.viol3t.tmall_springboot.pojo.Product;
 import com.viol3t.tmall_springboot.service.CategoryService;
+import com.viol3t.tmall_springboot.service.ProductImageService;
 import com.viol3t.tmall_springboot.service.ProductService;
 import com.viol3t.tmall_springboot.util.Page4Navigator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class ProductController {
     ProductService productService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    ProductImageService productImageService;
 
     @GetMapping("/categories/{cid}/products")
     public Page4Navigator<Product> list(@PathVariable("cid") int cid,
@@ -22,6 +25,7 @@ public class ProductController {
                                         @RequestParam(value = "size",defaultValue = "5") int size)throws Exception{
         start = start<0?0:start;
         Page4Navigator<Product> page = productService.list(cid,start,size,5);
+        productImageService.setFirstProductImages(page.getContent());
         return page;
     }
 
