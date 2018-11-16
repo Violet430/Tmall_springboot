@@ -16,7 +16,7 @@ public class PropertyValueController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/products/{id}/propertyValues")
+    @GetMapping("/products/{pid}/propertyValues")
     public List<PropertyValue> list(@PathVariable("pid") int pid)throws Exception{
         Product product = productService.get(pid);
         propertyValueService.init(product);
