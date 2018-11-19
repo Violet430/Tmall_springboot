@@ -3,6 +3,7 @@ package com.viol3t.tmall_springboot.service;
 import com.viol3t.tmall_springboot.dao.OrderItemDAO;
 import com.viol3t.tmall_springboot.pojo.Order;
 import com.viol3t.tmall_springboot.pojo.OrderItem;
+import com.viol3t.tmall_springboot.pojo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,4 +39,20 @@ public class OrderItemService {
     public List<OrderItem> listByOrder(Order order){
         return orderItemDAO.findByOrderOrderByIdDesc(order);
     }
+    public List<OrderItem> listByProduct(Product product){
+        return orderItemDAO.findByProduct(product);
+    }
+
+    public int getSaleCount(Product product){
+        List<OrderItem> ois = listByProduct(product);
+        int result = 0;
+        for(OrderItem oi:ois){
+            if(null!=oi.getOrder()){
+                if(null!=oi.getOrder() && null!=oi.getOrder().getPayDate())
+                    result+=oi.getNumber();
+            }
+        }
+        return result;
+    }
+
 }
