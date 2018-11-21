@@ -1,6 +1,8 @@
 package com.viol3t.tmall_springboot.service;
 
 import com.viol3t.tmall_springboot.dao.ProductImageDAO;
+import com.viol3t.tmall_springboot.pojo.Order;
+import com.viol3t.tmall_springboot.pojo.OrderItem;
 import com.viol3t.tmall_springboot.pojo.Product;
 import com.viol3t.tmall_springboot.pojo.ProductImage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,11 @@ public class ProductImageService {
     public void setFirstProductImages(List<Product> products){
         for(Product product:products){
             setFirstProductImage(product);
+        }
+    }
+    public void setFirstProductImagesOnOrderItems(List<OrderItem> ois){
+        for (OrderItem oi:ois){
+            setFirstProductImage(oi.getProduct());
         }
     }
 }

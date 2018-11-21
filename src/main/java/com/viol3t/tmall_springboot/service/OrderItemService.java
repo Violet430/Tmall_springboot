@@ -4,6 +4,7 @@ import com.viol3t.tmall_springboot.dao.OrderItemDAO;
 import com.viol3t.tmall_springboot.pojo.Order;
 import com.viol3t.tmall_springboot.pojo.OrderItem;
 import com.viol3t.tmall_springboot.pojo.Product;
+import com.viol3t.tmall_springboot.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,24 @@ public class OrderItemService {
     public List<OrderItem> listByProduct(Product product){
         return orderItemDAO.findByProduct(product);
     }
+    public List<OrderItem> listByUser(User user){
+        return orderItemDAO.findByUserAndOrderIsNull(user);
+    }
+
+    public void add(OrderItem orderItem){
+        orderItemDAO.save(orderItem);
+    }
+    public void delete(int id){
+        orderItemDAO.deleteById(id);
+    }
+    public OrderItem get(int id){
+        return orderItemDAO.getOne(id);
+    }
+    public void update(OrderItem orderItem){
+        orderItemDAO.save(orderItem);
+    }
+
+
 
     public int getSaleCount(Product product){
         List<OrderItem> ois = listByProduct(product);
